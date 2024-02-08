@@ -3,6 +3,8 @@ const sizeInput = document.querySelector(".input-modal input");
 const sizeBtn = document.querySelector(".input-modal button");
 const modalMessage = document.querySelector(".input-modal p");
 const boardBtns = document.querySelector(".board-buttons");
+const topMessage = document.querySelector(".top-message");
+const topParagraph = document.querySelector(".top-paragraph");
 
 function createGrid(size) {
 	if (size >= 2 && size <= 100) {
@@ -21,7 +23,7 @@ function createGrid(size) {
 				gridRow.appendChild(gridBox);
 			}
 			board.appendChild(gridRow);
-			modalMessage.textContent = `Grid size: ${size} x ${size}`;
+			topMessage.textContent = `Grid size: ${size} x ${size}`;
 		}
 	} else {
 		modalMessage.textContent = "Type a number between 2 and 100";
@@ -30,6 +32,7 @@ function createGrid(size) {
 
 // ----Functions For The Board Buttons----
 function setColorRandom() {
+	topParagraph.textContent = "Random Color is Active";
 	board.addEventListener("mouseover", (e) => {
 		if (e.target.className.includes("grid-box")) {
 			const rngRedColor = Math.floor(Math.random() * 255) + 1;
@@ -41,6 +44,7 @@ function setColorRandom() {
 }
 
 function setColorBlack() {
+	topParagraph.textContent = "Black Color is Active";
 	board.addEventListener("mouseover", (e) => {
 		if (e.target.className.includes("grid-box")) {
 			e.target.style.backgroundColor = "#000";
@@ -49,6 +53,7 @@ function setColorBlack() {
 }
 
 function eraseColor() {
+	topParagraph.textContent = "Eraser is Active";
 	board.addEventListener("mouseover", (e) => {
 		if (e.target.className.includes("grid-box")) {
 			e.target.style.backgroundColor = "#fff";
@@ -72,7 +77,6 @@ function cleanTheBoard() {
 function deleteGrid() {
 	if (board.querySelector(".grid-row") !== null) {
 		board.textContent = "";
-		// Delete the modal message if the number of boxes is between 2 and 100
 		modalMessage.textContent = "";
 	}
 }
