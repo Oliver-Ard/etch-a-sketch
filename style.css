@@ -39,7 +39,7 @@ input {
 /* JS Classes */
 .board {
 	border: 1px solid black;
-	width: 800px;
+	width: 90%;
 	margin: 2rem;
 }
 
@@ -48,5 +48,5 @@ input {
 }
 
 .grid-box {
-	border: 1px solid black;
+	/* border: 1px solid black; */
 }
