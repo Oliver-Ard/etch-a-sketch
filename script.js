@@ -21,6 +21,7 @@ function createGrid(size) {
 				gridRow.appendChild(gridBox);
 			}
 			board.appendChild(gridRow);
+			modalMessage.textContent = `Grid size: ${size} x ${size}`;
 		}
 	} else {
 		modalMessage.textContent = "Type a number between 2 and 100";
@@ -67,12 +68,6 @@ function cleanTheBoard() {
 	}
 }
 
-function resetGrid() {
-	if (board.childElementCount) {
-		createGrid(16);
-	}
-}
-
 // ----Helper Functions----
 function deleteGrid() {
 	if (board.querySelector(".grid-row") !== null) {
@@ -83,7 +78,7 @@ function deleteGrid() {
 }
 
 // This function will initialize the app
-function init() {
+function initApp() {
 	createGrid(16);
 	setColorBlack();
 }
@@ -99,7 +94,7 @@ boardBtns.addEventListener("click", (e) => {
 	} else if (e.target.id === "clean-btn") {
 		cleanTheBoard();
 	} else if (e.target.id === "reset-btn") {
-		resetGrid();
+		initApp();
 	}
 });
 
@@ -108,4 +103,4 @@ sizeBtn.addEventListener("click", (e) => {
 	createGrid(+sizeInput.value);
 });
 
-document.addEventListener("DOMContentLoaded", init);
+document.addEventListener("DOMContentLoaded", initApp);
