@@ -28,6 +28,17 @@ function createGrid(size) {
 }
 
 // ----Functions For The Board Buttons----
+function setColorRandom() {
+	board.addEventListener("mouseover", (e) => {
+		if (e.target.className.includes("grid-box")) {
+			const rngRedColor = Math.floor(Math.random() * 255) + 1;
+			const rngGreenColor = Math.floor(Math.random() * 255) + 1;
+			const rngBlueColor = Math.floor(Math.random() * 255) + 1;
+			e.target.style.backgroundColor = `rgb(${rngRedColor}, ${rngGreenColor}, ${rngBlueColor})`;
+		}
+	});
+}
+
 function setColorBlack() {
 	board.addEventListener("mouseover", (e) => {
 		if (e.target.className.includes("grid-box")) {
@@ -45,13 +56,15 @@ function eraseColor() {
 }
 
 function cleanTheBoard() {
+	// Check the board children
 	const boardRows = board.children;
 	for (let row of boardRows) {
+		// For every board children(row) check row children
 		for (let box of row.children) {
+			// For every row children(box) change background color to white
 			box.style.backgroundColor = "#fff";
 		}
 	}
-	setColorBlack();
 }
 
 function resetGrid() {
@@ -77,16 +90,19 @@ function init() {
 
 // ----Event Listeners----
 boardBtns.addEventListener("click", (e) => {
-	if (e.target.id === "reset-btn") {
-		resetGrid();
+	if (e.target.id === "random-color") {
+		setColorRandom();
 	} else if (e.target.id === "black-color") {
 		setColorBlack();
-	} else if (e.target.id === "clean-btn") {
-		cleanTheBoard();
 	} else if (e.target.id === "erase-btn") {
 		eraseColor();
+	} else if (e.target.id === "clean-btn") {
+		cleanTheBoard();
+	} else if (e.target.id === "reset-btn") {
+		resetGrid();
 	}
 });
+
 sizeBtn.addEventListener("click", (e) => {
 	e.preventDefault();
 	createGrid(+sizeInput.value);
