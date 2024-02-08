@@ -1,48 +1,123 @@
+/* VARIABLES */
+:root {
+	--ff-body: "Montserrat", sans-serif;
+	--ff-heading: "Comic Neue", cursive;
+
+	--clr-primary: #99dc4b;
+	--clr-secondary: #e2ebdd;
+	--clr-light: #ffffff;
+	--clr-dark: #1d1803;
+	--clr-grey: #525252;
+
+	--font-size-h1: 4.5rem;
+	--font-size-h2: 2rem;
+	--font-size-p: 1.25rem;
+}
+
+/* GENERAL STYLES */
 *,
 *::before,
 *::after {
 	box-sizing: border-box;
-}
-
-body {
 	margin: 0;
 }
 
-.container {
-	max-width: 1000px;
-	width: 80%;
-	margin: 0 auto;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+body {
+	font-family: var(--ff-body);
+	background: var(--clr-secondary);
 }
 
-header {
-	background-color: #ccc;
+h1 {
+	font-family: var(--ff-heading);
+	font-size: var(--font-size-h1);
+	text-align: center;
+	padding: 1rem 0;
+}
+
+h2 {
+	font-size: var(--font-size-h2);
+	margin: 1rem 0;
+	text-align: center;
+	letter-spacing: 5px;
+}
+
+p {
+	font-size: var(--font-size-p);
 }
 
 button {
-	font-size: 1.5rem;
-	font-family: inherit;
 	display: inline-block;
-	margin: 0 0.5rem;
+	cursor: pointer;
+	font-size: var(--font-size-p);
+	font-family: inherit;
+	background: var(--clr-dark);
+	color: var(--clr-light);
+	border: none;
+	padding: 0.5em 2.5em;
+	border-radius: 5px;
+	transition: all 0.2s ease;
 }
 
-.input-modal {
-	margin: 1.5rem 0;
+button:hover {
+	background: var(--clr-grey);
+	transform: scale(1.1);
 }
 
-input {
-	font-size: 1.5rem;
+/* LAYOUT */
+.wrapper {
+	max-width: 55rem;
+	width: 80%;
+	margin: 1.5rem auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-radius: 10px;
+	background: var(--clr-primary);
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
-/* JS Classes */
+/* SECTIONS */
+.top-paragraph {
+	border-bottom: 1px solid var(--clr-dark);
+}
+
 .board {
-	border: 1px solid black;
+	background: #fff;
+	border: 1px solid var(--clr-dark);
 	width: 90%;
 	margin: 2rem;
 }
 
+/* --Board Buttons-- */
+.board-buttons {
+	margin: 0 0 2rem;
+	padding: 0 1rem;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 2rem;
+}
+
+.board-buttons #size-btn {
+	background: var(--clr-grey);
+}
+
+.board-buttons #size-btn:hover {
+	background: var(--clr-dark);
+}
+
+/* --Input Modal-- */
+.input-modal {
+	margin: 1.5rem 0;
+	display: none;
+}
+
+.input-modal input {
+	font-size: 1.5rem;
+}
+/* JS Classes */
 .grid-row {
 	display: flex;
 }
