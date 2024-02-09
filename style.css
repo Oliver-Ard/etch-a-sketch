@@ -5,13 +5,18 @@
 
 	--clr-primary: #99dc4b;
 	--clr-secondary: #e2ebdd;
+	--clr-red: #ce1608;
 	--clr-light: #ffffff;
 	--clr-dark: #1d1803;
 	--clr-grey: #525252;
+	--clr-overlay: rgba(0, 0, 0, 0.6);
 
 	--font-size-h1: 4.5rem;
 	--font-size-h2: 2rem;
 	--font-size-p: 1.25rem;
+
+	--box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+	--border-radius: 8px;
 }
 
 /* GENERAL STYLES */
@@ -54,7 +59,7 @@ button {
 	color: var(--clr-light);
 	border: none;
 	padding: 0.5em 2.5em;
-	border-radius: 5px;
+	border-radius: var(--border-radius);
 	transition: all 0.2s ease;
 }
 
@@ -71,18 +76,21 @@ button:hover {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	border-radius: 10px;
+	border-radius: var(--border-radius);
 	background: var(--clr-primary);
-	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+	box-shadow: var(--box-shadow);
 }
 
 /* SECTIONS */
 .top-paragraph {
+	padding-bottom: 0.25rem;
 	border-bottom: 1px solid var(--clr-dark);
+	color: var(--clr-red);
+	font-weight: 700;
 }
 
 .board {
-	background: #fff;
+	background: var(--clr-light);
 	border: 1px solid var(--clr-dark);
 	width: 90%;
 	margin: 2rem;
@@ -109,15 +117,64 @@ button:hover {
 }
 
 /* --Input Modal-- */
-.input-modal {
-	margin: 1.5rem 0;
+.modal-box .overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: var(--clr-overlay);
+	z-index: 1;
 	display: none;
 }
 
-.input-modal input {
-	font-size: 1.5rem;
+.modal-box .content {
+	background: var(--clr-secondary);
+	border-radius: var(--border-radius);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 2;
+	max-width: 250px;
+	padding: 2rem;
+	transform: translate(-50%, -50%) scale(0);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	transition: all 0.25s ease-in-out;
+}
+
+.modal-box p {
+	color: var(--clr-red);
+	font-weight: 700;
+}
+
+.modal-box input {
+	font-size: var(--font-size-p);
+	background: var(--clr-light);
+	width: 100%;
+	margin: 1rem 0;
+	border: 1px solid var(--clr-dark);
+	border-radius: var(--border-radius);
+	padding: 0.5rem;
+}
+
+.modal-box input::-webkit-inner-spin-button,
+.modal-box input::-webkit-outer-spin-button {
+	appearance: none;
+	-moz-appearance: textfield;
 }
 /* JS Classes */
 .grid-row {
 	display: flex;
+}
+
+.modal-box.active .overlay {
+	display: block;
+}
+
+.modal-box.active .content {
+	transform: translate(-50%, -50%) scale(1);
 }

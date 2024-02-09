@@ -1,32 +1,33 @@
+// Board
 const board = document.querySelector(".board");
-const sizeInput = document.querySelector(".input-modal input");
-const sizeBtn = document.querySelector(".input-modal button");
-const modalMessage = document.querySelector(".input-modal p");
 const boardBtns = document.querySelector(".board-buttons");
 const topMessage = document.querySelector(".top-message");
 const topParagraph = document.querySelector(".top-paragraph");
+// Modal Box
+const modalBox = document.querySelector(".modal-box");
+const modalMessage = document.querySelector(".modal-box p");
+const sizeInput = document.querySelector(".modal-box input");
+const sizeBtn = document.querySelector(".modal-box button");
 
 function createGrid(size) {
-	if (size >= 2 && size <= 100) {
-		deleteGrid();
-		// Create the rows
-		for (let i = 0; i < size; i++) {
-			const gridRow = document.createElement("div");
-			gridRow.classList.add("grid-row");
-			// Create the boxes for each row
-			for (let j = 0; j < size; j++) {
-				const widthAndHeight = board.offsetWidth / size;
-				const gridBox = document.createElement("div");
-				gridBox.classList.add("grid-box");
-				gridBox.style.width = `${widthAndHeight}px`;
-				gridBox.style.height = `${widthAndHeight}px`;
-				gridRow.appendChild(gridBox);
-			}
-			board.appendChild(gridRow);
-			topMessage.textContent = `Grid size: ${size} x ${size}`;
+	sizeInput.value = "";
+	deleteGrid();
+
+	// Create the rows
+	for (let i = 0; i < size; i++) {
+		const gridRow = document.createElement("div");
+		gridRow.classList.add("grid-row");
+		// Create the boxes for each row
+		for (let j = 0; j < size; j++) {
+			const widthAndHeight = board.offsetWidth / size;
+			const gridBox = document.createElement("div");
+			gridBox.classList.add("grid-box");
+			gridBox.style.width = `${widthAndHeight}px`;
+			gridBox.style.height = `${widthAndHeight}px`;
+			gridRow.appendChild(gridBox);
 		}
-	} else {
-		modalMessage.textContent = "Type a number between 2 and 100";
+		board.appendChild(gridRow);
+		topMessage.textContent = `Grid size: ${size} x ${size}`;
 	}
 }
 
@@ -81,6 +82,10 @@ function deleteGrid() {
 	}
 }
 
+function toggleInputModal() {
+	modalBox.classList.toggle("active");
+}
+
 // This function will initialize the app
 function initApp() {
 	createGrid(16);
@@ -89,9 +94,9 @@ function initApp() {
 
 // ----Event Listeners----
 boardBtns.addEventListener("click", (e) => {
-	if (e.target.id === "random-color") {
+	if (e.target.id === "random-color-btn") {
 		setColorRandom();
-	} else if (e.target.id === "black-color") {
+	} else if (e.target.id === "black-color-btn") {
 		setColorBlack();
 	} else if (e.target.id === "erase-btn") {
 		eraseColor();
@@ -99,12 +104,21 @@ boardBtns.addEventListener("click", (e) => {
 		cleanTheBoard();
 	} else if (e.target.id === "reset-btn") {
 		initApp();
+	} else if (e.target.id === "size-btn") {
+		toggleInputModal();
 	}
 });
 
 sizeBtn.addEventListener("click", (e) => {
 	e.preventDefault();
-	createGrid(+sizeInput.value);
+
+	if (sizeInput.value >= 2 && sizeInput.value <= 100) {
+		toggleInputModal();
+		createGrid(+sizeInput.value);
+	} else {
+		sizeInput.value = "";
+		modalMessage.textContent = "Type a number between 2 and 100";
+	}
 });
 
 document.addEventListener("DOMContentLoaded", initApp);
