@@ -178,3 +178,28 @@ button:hover {
 .modal-box.active .content {
 	transform: translate(-50%, -50%) scale(1);
 }
+
+/* Media Queries */
+@media only screen and (max-width: 760px) {
+	:root {
+		--font-size-h1: 4rem;
+		--font-size-h2: 1.75rem;
+		--font-size-p: 1rem;
+	}
+}
+
+@media only screen and (max-width: 580px) {
+	:root {
+		--font-size-h1: 3.5rem;
+		--font-size-h2: 1.5rem;
+		--font-size-p: 0.8rem;
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	:root {
+		--font-size-h1: 3rem;
+		--font-size-h2: 1.25rem;
+		--font-size-p: 0.7rem;
+	}
+}
