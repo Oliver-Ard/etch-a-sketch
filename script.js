@@ -1,3 +1,4 @@
+// ----HTML Elements----
 // Board
 const board = document.querySelector(".board");
 const boardBtns = document.querySelector(".board-buttons");
@@ -9,6 +10,7 @@ const modalMessage = document.querySelector(".modal-box p");
 const sizeInput = document.querySelector(".modal-box input");
 const sizeBtn = document.querySelector(".modal-box button");
 
+// ----Board Grid----
 function createGrid(size) {
 	sizeInput.value = "";
 	deleteGrid();
@@ -31,8 +33,35 @@ function createGrid(size) {
 	}
 }
 
-// ----Functions For The Board Buttons----
-function setColorRandom() {
+function setGridSize(e) {
+	e.preventDefault();
+	if (sizeInput.value >= 2 && sizeInput.value <= 100) {
+		toggleInputModal();
+		createGrid(+sizeInput.value);
+	} else {
+		sizeInput.value = "";
+		modalMessage.textContent = "Type a number between 2 and 100";
+	}
+}
+
+// ----Board Buttons----
+function chooseBoardBtns(e) {
+	if (e.target.id === "random-color-btn") {
+		setRandomColor();
+	} else if (e.target.id === "black-color-btn") {
+		setBlackColor();
+	} else if (e.target.id === "erase-btn") {
+		eraseColor();
+	} else if (e.target.id === "clean-btn") {
+		cleanBoard();
+	} else if (e.target.id === "reset-btn") {
+		initApp();
+	} else if (e.target.id === "size-btn") {
+		toggleInputModal();
+	}
+}
+
+function setRandomColor() {
 	topParagraph.textContent = "Random Color is Active";
 	board.addEventListener("mouseover", (e) => {
 		if (e.target.className.includes("grid-box")) {
@@ -44,7 +73,7 @@ function setColorRandom() {
 	});
 }
 
-function setColorBlack() {
+function setBlackColor() {
 	topParagraph.textContent = "Black Color is Active";
 	board.addEventListener("mouseover", (e) => {
 		if (e.target.className.includes("grid-box")) {
@@ -62,15 +91,10 @@ function eraseColor() {
 	});
 }
 
-function cleanTheBoard() {
-	// Check the board children
-	const boardRows = board.children;
-	for (let row of boardRows) {
-		// For every board children(row) check row children
-		for (let box of row.children) {
-			// For every row children(box) change background color to white
-			box.style.backgroundColor = "#fff";
-		}
+function cleanBoard() {
+	const gridBoxes = document.querySelectorAll(".board .grid-box");
+	for (let box of gridBoxes) {
+		box.style.backgroundColor = "#fff";
 	}
 }
 
@@ -89,36 +113,10 @@ function toggleInputModal() {
 // This function will initialize the app
 function initApp() {
 	createGrid(16);
-	setColorBlack();
+	setBlackColor();
 }
 
 // ----Event Listeners----
-boardBtns.addEventListener("click", (e) => {
-	if (e.target.id === "random-color-btn") {
-		setColorRandom();
-	} else if (e.target.id === "black-color-btn") {
-		setColorBlack();
-	} else if (e.target.id === "erase-btn") {
-		eraseColor();
-	} else if (e.target.id === "clean-btn") {
-		cleanTheBoard();
-	} else if (e.target.id === "reset-btn") {
-		initApp();
-	} else if (e.target.id === "size-btn") {
-		toggleInputModal();
-	}
-});
-
-sizeBtn.addEventListener("click", (e) => {
-	e.preventDefault();
-
-	if (sizeInput.value >= 2 && sizeInput.value <= 100) {
-		toggleInputModal();
-		createGrid(+sizeInput.value);
-	} else {
-		sizeInput.value = "";
-		modalMessage.textContent = "Type a number between 2 and 100";
-	}
-});
-
+boardBtns.addEventListener("click", chooseBoardBtns);
+sizeBtn.addEventListener("click", setGridSize);
 document.addEventListener("DOMContentLoaded", initApp);
